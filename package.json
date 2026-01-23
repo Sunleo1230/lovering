@@ -1,0 +1,28 @@
+{
+  "name": "lovering",
+  "version": "0.1.1",
+  "description": "青春文案生成与处理",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && cp -r src/data dist/data && node test.js",
+    "cli:dev":"ts-node src/cli.ts",
+    "cli:prod":"node dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/sunleo1230/loveringjs.git/"
+  },
+  "keywords": [
+    "youth",
+    "lover",
+    "boy",
+    "lovering",
+    "lovering.js"
+  ],
+  "author": "sunleo1230",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.0.5"
+  }
+}
