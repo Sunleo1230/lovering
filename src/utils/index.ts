@@ -1,4 +1,7 @@
 import {Types,Article} from '../types';
+import { ReplaceConfig } from '../types';
+import { starConfig } from '../types';
+
 import * as Errors from '../error';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -8,11 +11,11 @@ export const createNewText=():Types=>{
         text: '',
         _length:'',
     }
-}
+};
 
 export const Lovering=(text:string|string[],_length?:Types['_length']):Types|Types[]=>{
-    if (Array.isArray(text)){
-        return text.map(t => {
+    if(Array.isArray(text)){
+        return text.map(t=>{
             let now=createNewText();
             if (_length &&typeof _length==='number') {
                 now.text=t.slice(0,_length);
@@ -35,7 +38,7 @@ export const Lovering=(text:string|string[],_length?:Types['_length']):Types|Typ
             return now;
         }
     }
-}
+};
 
 export const addTag=(text:string|string[],tag: string):Types|Types[]=>{
     if (Array.isArray(text)) {
@@ -49,7 +52,7 @@ export const addTag=(text:string|string[],tag: string):Types|Types[]=>{
             _length: text.length >50?'long':'short',
         };
     }
-}
+};
 
 //@0.1.1
 export const __datapath=path.join(__dirname,'..','data');
@@ -64,12 +67,10 @@ export const readText=(mypath:string,keywords:Article):Article=>{
     data=fs.readFileSync(path.join(mypath,`${keywords}.json`),'utf-8');
     const json=JSON.parse(data);
     return json.articles;
-}
+};
 
 //@0.1.2
-import { ReplaceConfig } from '../types';
-
-export const keywords=(text:string[]|string,keywords:ReplaceConfig)=>{
+export const reKeywords=(text:string[]|string,keywords:ReplaceConfig)=>{
     if(!Array.isArray(text)){
         text=[text];
     };
@@ -84,7 +85,27 @@ export const keywords=(text:string[]|string,keywords:ReplaceConfig)=>{
             continue;
         };
     };
-    return text.length===1?
-        text[0]
-        :text;
+    return text.length===1?text[0]:text;
+};
+
+//@0.1.4
+export const random=(arr:string[])=>{
+    const randomIndex=Math.floor(Math.random()*arr.length);
+    return arr[randomIndex];
+};
+
+export const lovestar=(mypath:string,name:starConfig['name'],description:starConfig['description'])=>{
+    const filepath = path.join(mypath,`${name}.json`);
+    try {
+        let json: any[]=[];
+        if (fs.existsSync(filepath)){
+            const content=fs.readFileSync(filepath,'utf-8');
+            json=JSON.parse(content);
+        };
+        json.push(description);
+        fs.writeFileSync(filepath, JSON.stringify(json,null,2), 'utf-8');
+    }catch(e){
+        throw new Errors.FileReadError('💔Error reading file:'+e);
+    };
+    return 'done';
 };

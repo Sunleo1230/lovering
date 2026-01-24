@@ -8,7 +8,7 @@
  * @repository https://gitee.com/Sunleo1230/loveringjs.git/
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoveringError = exports.keywords = exports.__datapath = exports.readText = exports.addTag = exports.Lovering = void 0;
+exports.lovestar = exports.random = exports.LoveringError = exports.reKeywords = exports.__datapath = exports.readText = exports.addTag = exports.Lovering = exports.createNewText = void 0;
 //index.ts
 /**
  * @param {createText} -a function to create a new text model
@@ -23,13 +23,17 @@ exports.LoveringError = exports.keywords = exports.__datapath = exports.readText
   { text: '<tag>k</tag>', _length: 'short' }
   ] -example output
  */
-const utils_1 = require("./utils");
+const utils_1 = require("./utils"); /*@0.1.0 */
+Object.defineProperty(exports, "createNewText", { enumerable: true, get: function () { return utils_1.createNewText; } });
 Object.defineProperty(exports, "Lovering", { enumerable: true, get: function () { return utils_1.Lovering; } });
 Object.defineProperty(exports, "addTag", { enumerable: true, get: function () { return utils_1.addTag; } });
-const utils_2 = require("./utils");
+const utils_2 = require("./utils"); /*@0.1.1*/
 Object.defineProperty(exports, "readText", { enumerable: true, get: function () { return utils_2.readText; } });
 Object.defineProperty(exports, "__datapath", { enumerable: true, get: function () { return utils_2.__datapath; } });
-const utils_3 = require("./utils");
-Object.defineProperty(exports, "keywords", { enumerable: true, get: function () { return utils_3.keywords; } });
-const error_1 = require("./error");
+const utils_3 = require("./utils"); /*@0.1.2 */
+Object.defineProperty(exports, "reKeywords", { enumerable: true, get: function () { return utils_3.reKeywords; } });
+const error_1 = require("./error"); /*@0.1.3 */
 Object.defineProperty(exports, "LoveringError", { enumerable: true, get: function () { return error_1.LoveringError; } });
+const utils_4 = require("./utils"); /*@0.1.4 */
+Object.defineProperty(exports, "random", { enumerable: true, get: function () { return utils_4.random; } });
+Object.defineProperty(exports, "lovestar", { enumerable: true, get: function () { return utils_4.lovestar; } });

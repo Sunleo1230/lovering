@@ -19,11 +19,13 @@
   { text: '<tag>k</tag>', _length: 'short' }
   ] -example output
  */
-import { Lovering, addTag } from './utils';
+import { createNewText, Lovering, addTag } from './utils';
 import { readText, __datapath } from './utils';
-import { keywords } from './utils';
+import { reKeywords } from './utils';
 import { LoveringError } from './error';
-export { Lovering, addTag };
+import { random, lovestar } from './utils';
+export { createNewText, Lovering, addTag };
 export { readText, __datapath };
-export { keywords };
+export { reKeywords };
 export { LoveringError };
+export { random, lovestar };

@@ -23,12 +23,14 @@
   ] -example output
  */
 
-import {Lovering,addTag} from './utils';
-import {readText,__datapath} from './utils';
-import {keywords} from './utils';
-import {LoveringError} from './error';
+import {createNewText,Lovering,addTag} from './utils'; /*@0.1.0 */
+import {readText,__datapath} from './utils'; /*@0.1.1*/
+import {reKeywords} from './utils'; /*@0.1.2 */
+import {LoveringError} from './error'; /*@0.1.3 */
+import {random,lovestar} from './utils'; /*@0.1.4 */
 
-export {Lovering,addTag};
+export {createNewText,Lovering,addTag};
 export {readText,__datapath};
-export {keywords};
+export {reKeywords};
 export {LoveringError};
+export {random,lovestar};

@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.keywords = exports.readText = exports.__datapath = exports.addTag = exports.Lovering = exports.createNewText = void 0;
+exports.lovestar = exports.random = exports.reKeywords = exports.readText = exports.__datapath = exports.addTag = exports.Lovering = exports.createNewText = void 0;
 const Errors = __importStar(require("../error"));
 const path = __importStar(require("path"));
 const fs = __importStar(require("fs"));
@@ -104,7 +104,8 @@ const readText = (mypath, keywords) => {
     return json.articles;
 };
 exports.readText = readText;
-const keywords = (text, keywords) => {
+//@0.1.2
+const reKeywords = (text, keywords) => {
     if (!Array.isArray(text)) {
         text = [text];
     }
@@ -124,8 +125,31 @@ const keywords = (text, keywords) => {
         ;
     }
     ;
-    return text.length === 1 ?
-        text[0]
-        : text;
+    return text.length === 1 ? text[0] : text;
 };
-exports.keywords = keywords;
+exports.reKeywords = reKeywords;
+//@0.1.4
+const random = (arr) => {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+};
+exports.random = random;
+const lovestar = (mypath, name, description) => {
+    const filepath = path.join(mypath, `${name}.json`);
+    try {
+        let json = [];
+        if (fs.existsSync(filepath)) {
+            const content = fs.readFileSync(filepath, 'utf-8');
+            json = JSON.parse(content);
+        }
+        ;
+        json.push(description);
+        fs.writeFileSync(filepath, JSON.stringify(json, null, 2), 'utf-8');
+    }
+    catch (e) {
+        throw new Errors.FileReadError('💔Error reading file:' + e);
+    }
+    ;
+    return 'done';
+};
+exports.lovestar = lovestar;

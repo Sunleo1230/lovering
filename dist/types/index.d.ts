@@ -19,3 +19,7 @@ export interface ReplaceConfig {
 export declare enum CliConfig {
     version = "0.1.2"
 }
+export interface starConfig {
+    name: string | string[] | null;
+    description: string | string[] | null;
+}
