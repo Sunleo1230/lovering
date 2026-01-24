@@ -8,7 +8,7 @@
  * @repository https://gitee.com/Sunleo1230/loveringjs.git/
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.keywords = exports.__datapath = exports.readText = exports.addTag = exports.Lovering = void 0;
+exports.LoveringError = exports.keywords = exports.__datapath = exports.readText = exports.addTag = exports.Lovering = void 0;
 //index.ts
 /**
  * @param {createText} -a function to create a new text model
@@ -31,3 +31,5 @@ Object.defineProperty(exports, "readText", { enumerable: true, get: function () 
 Object.defineProperty(exports, "__datapath", { enumerable: true, get: function () { return utils_2.__datapath; } });
 const utils_3 = require("./utils");
 Object.defineProperty(exports, "keywords", { enumerable: true, get: function () { return utils_3.keywords; } });
+const error_1 = require("./error");
+Object.defineProperty(exports, "LoveringError", { enumerable: true, get: function () { return error_1.LoveringError; } });

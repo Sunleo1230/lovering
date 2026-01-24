@@ -34,6 +34,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.keywords = exports.readText = exports.__datapath = exports.addTag = exports.Lovering = exports.createNewText = void 0;
+const Errors = __importStar(require("../error"));
 const path = __importStar(require("path"));
 const fs = __importStar(require("fs"));
 const createNewText = () => {
@@ -96,7 +97,7 @@ const readText = (mypath, keywords) => {
         fs.readFileSync(path.join(mypath, `${keywords}.json`), 'utf-8');
     }
     catch (e) {
-        throw new Error('💔Error reading file:' + e);
+        throw new Errors.FileReadError('💔Error reading file:' + e);
     }
     data = fs.readFileSync(path.join(mypath, `${keywords}.json`), 'utf-8');
     const json = JSON.parse(data);
@@ -109,12 +110,12 @@ const keywords = (text, keywords) => {
     }
     ;
     if (keywords.target.length !== keywords.replace.length) {
-        throw new Error('💔Target and replace arrays must have the same length.');
+        throw new Errors.InvalidConfigError('💔Target and replace arrays must have the same length.');
     }
     ;
     for (let i = 0; i < keywords.target.length; i++) {
         if (!text.some(t => t.includes(keywords.target[i]))) {
-            throw new Error('💔Target keyword not found in the target text.');
+            throw new Errors.KeywordNotFoundError('💔Target keyword not found in the target text.');
         }
         else {
             text = text.map(t => t.replace(new RegExp(keywords.target[i], 'g'), keywords.replace[i]));

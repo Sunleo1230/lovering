@@ -12,7 +12,10 @@ export interface DBconfig {
     user: string;
     password: string;
 }
-export interface replaceConfig {
+export interface ReplaceConfig {
     target: string[];
     replace: string[];
+}
+export declare enum CliConfig {
+    version = "0.1.2"
 }

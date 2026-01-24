@@ -1,6 +1,6 @@
 {
   "name": "lovering",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "青春文案生成与处理",
   "main": "index.js",
   "scripts": {
