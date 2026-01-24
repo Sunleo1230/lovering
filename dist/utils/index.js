@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readText = exports.__datapath = exports.addTag = exports.Lovering = void 0;
+exports.keywords = exports.readText = exports.__datapath = exports.addTag = exports.Lovering = exports.createNewText = void 0;
 const path = __importStar(require("path"));
 const fs = __importStar(require("fs"));
 const createNewText = () => {
@@ -42,10 +42,11 @@ const createNewText = () => {
         _length: '',
     };
 };
+exports.createNewText = createNewText;
 const Lovering = (text, _length) => {
     if (Array.isArray(text)) {
         return text.map(t => {
-            let now = createNewText();
+            let now = (0, exports.createNewText)();
             if (_length && typeof _length === 'number') {
                 now.text = t.slice(0, _length);
                 now._length = _length;
@@ -58,7 +59,7 @@ const Lovering = (text, _length) => {
         });
     }
     else {
-        let now = createNewText();
+        let now = (0, exports.createNewText)();
         if (_length && typeof _length === 'number') {
             now.text = text.slice(0, _length);
             now._length = _length;
@@ -66,7 +67,7 @@ const Lovering = (text, _length) => {
         }
         else {
             now.text = text;
-            now._length = text.length > 50 ? 'long' : 'short';
+            now._length = text.length >= 50 ? 'long' : 'short';
             return now;
         }
     }
@@ -76,7 +77,7 @@ const addTag = (text, tag) => {
     if (Array.isArray(text)) {
         return text.map(t => ({
             text: `<${tag}>${t}</${tag}>`,
-            _length: t.length > 50 ? 'long' : 'short',
+            _length: t.length >= 50 ? 'long' : 'short',
         }));
     }
     else {
@@ -102,3 +103,28 @@ const readText = (mypath, keywords) => {
     return json.articles;
 };
 exports.readText = readText;
+const keywords = (text, keywords) => {
+    if (!Array.isArray(text)) {
+        text = [text];
+    }
+    ;
+    if (keywords.target.length !== keywords.replace.length) {
+        throw new Error('💔Target and replace arrays must have the same length.');
+    }
+    ;
+    for (let i = 0; i < keywords.target.length; i++) {
+        if (!text.some(t => t.includes(keywords.target[i]))) {
+            throw new Error('💔Target keyword not found in the target text.');
+        }
+        else {
+            text = text.map(t => t.replace(new RegExp(keywords.target[i], 'g'), keywords.replace[i]));
+            continue;
+        }
+        ;
+    }
+    ;
+    return text.length === 1 ?
+        text[0]
+        : text;
+};
+exports.keywords = keywords;

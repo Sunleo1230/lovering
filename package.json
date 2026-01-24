@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && cp -r src/data dist/data && node test.js",
-    "cli:dev":"ts-node src/cli.ts",
-    "cli:prod":"node dist/cli.js"
+    "build": "tsc &&  xcopy src\\data dist\\data /E /I /Y && node test.js",
+    "cli:dev": "ts-node src/cli.ts",
+    "cli:prod": "node dist/cli.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,11 @@
   "author": "sunleo1230",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^25.0.5"
+    "@types/node": "^25.0.5",
+    "@types/sqlite3": "^3.1.11"
+  },
+  "dependencies": {
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
   }
 }

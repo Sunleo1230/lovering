@@ -31,7 +31,7 @@
 
     "skipLibCheck": true,                        
     "forceConsistentCasingInFileNames": true,   
-    "skipDefaultLibCheck": true                 
+    "skipDefaultLibCheck": true,        
   },
   "include": [
     "src/**/*"                                  

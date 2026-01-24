@@ -7,3 +7,12 @@ export interface Article {
     keywords: string;
     path: string;
 }
+export interface DBconfig {
+    database: string;
+    user: string;
+    password: string;
+}
+export interface replaceConfig {
+    target: string[];
+    replace: string[];
+}
