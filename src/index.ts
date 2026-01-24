@@ -25,9 +25,10 @@
 
 import {Lovering,addTag} from './utils';
 import {readText,__datapath} from './utils';
-import {keywords} from './utils'
-//import {initdb} from './utils/loveringdb';
+import {keywords} from './utils';
+import {LoveringError} from './error';
 
-export {Lovering,addTag}
+export {Lovering,addTag};
 export {readText,__datapath};
 export {keywords};
+export {LoveringError};

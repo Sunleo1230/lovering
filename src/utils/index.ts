@@ -1,4 +1,5 @@
 import {Types,Article} from '../types';
+import * as Errors from '../error';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -58,7 +59,7 @@ export const readText=(mypath:string,keywords:Article):Article=>{
     try{
         fs.readFileSync(path.join(mypath,`${keywords}.json`),'utf-8');
     }catch(e){
-        throw new Error('💔Error reading file:'+e);
+        throw new Errors.FileReadError('💔Error reading file:'+e);
     }
     data=fs.readFileSync(path.join(mypath,`${keywords}.json`),'utf-8');
     const json=JSON.parse(data);
@@ -66,18 +67,18 @@ export const readText=(mypath:string,keywords:Article):Article=>{
 }
 
 //@0.1.2
-import { replaceConfig } from '../types';
+import { ReplaceConfig } from '../types';
 
-export const keywords=(text:string[]|string,keywords:replaceConfig)=>{
+export const keywords=(text:string[]|string,keywords:ReplaceConfig)=>{
     if(!Array.isArray(text)){
         text=[text];
     };
     if(keywords.target.length!==keywords.replace.length){
-        throw new Error('💔Target and replace arrays must have the same length.');
+        throw new Errors.InvalidConfigError('💔Target and replace arrays must have the same length.');
     };
     for(let i:number=0;i<keywords.target.length;i++){
         if(!text.some(t=>t.includes(keywords.target[i]))){
-            throw new Error('💔Target keyword not found in the target text.');
+            throw new Errors.KeywordNotFoundError('💔Target keyword not found in the target text.');
         }else{
             text=text.map(t=>t.replace(new RegExp(keywords.target[i], 'g'), keywords.replace[i]));
             continue;
@@ -86,4 +87,4 @@ export const keywords=(text:string[]|string,keywords:replaceConfig)=>{
     return text.length===1?
         text[0]
         :text;
-}
+};

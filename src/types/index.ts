@@ -16,7 +16,11 @@ export interface DBconfig{
     password: string;
 }
 
-export interface replaceConfig{
+export interface ReplaceConfig{
     target:string[];
     replace:string[];
+}
+
+export enum CliConfig{
+    version='0.1.2'
 }
