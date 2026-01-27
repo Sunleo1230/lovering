@@ -1,4 +1,4 @@
-import {Types,Article} from '../types';
+import { Types,Article } from '../types';
 import { ReplaceConfig } from '../types';
 import { starConfig } from '../types';
 
@@ -13,6 +13,7 @@ export const createNewText=():Types=>{
     }
 };
 
+//@0.1.0
 export const Lovering=(text:string|string[],_length?:Types['_length']):Types|Types[]=>{
     if(Array.isArray(text)){
         return text.map(t=>{
@@ -23,35 +24,45 @@ export const Lovering=(text:string|string[],_length?:Types['_length']):Types|Typ
             }else{
                 now.text=t;
                 now._length=t.length>50?'long':'short';
-            }
+            };
             return now;
         });
     }else{
         let now=createNewText();
-        if (_length && typeof _length === 'number') {
+        if (_length && typeof _length==='number') {
             now.text= text.slice(0,_length);
             now._length=_length;
             return now;
-        } else {
+        }else {
             now.text=text;
-            now._length=text.length>=50 ?'long':'short';
+            now._length=text.length>=50?'long':'short';
             return now;
-        }
-    }
+        };
+    };
 };
 
-export const addTag=(text:string|string[],tag: string):Types|Types[]=>{
+//@0.1.6 fixed here.
+export const addTag=(text:string|string[]|{text:string}[]|{text:string},tag: string):Types|Types[]=>{
     if (Array.isArray(text)) {
-        return text.map(t=>({
-            text:`<${tag}>${t}</${tag}>`,
-            _length:t.length>=50?'long':'short',
-        }));
+        return text.map(t=>{
+            let content=typeof t==='string'?t:(t&&typeof t==='object'&&'text'in t?t.text:'');
+            return {
+                text:`<${tag}>${content}</${tag}>`,
+                _length:content.length>=50?'long':'short',
+            };
+        });
+    }else if(typeof text==='object'&&text!==null){
+        let content=typeof text.text==='string'?text.text:'';
+        return{
+            text:`<${tag}>${content}</${tag}>`,
+            _length: (content as string).length >50?'long':'short',
+        };
     }else{
         return{
             text:`<${tag}>${text}</${tag}>`,
-            _length: text.length >50?'long':'short',
+            _length: (text as string).length >50?'long':'short',
         };
-    }
+    };
 };
 
 //@0.1.1
@@ -96,8 +107,8 @@ export const random=(arr:string[])=>{
 
 export const lovestar=(mypath:string,name:starConfig['name'],description:starConfig['description'])=>{
     const filepath = path.join(mypath,`${name}.json`);
-    try {
-        let json: any[]=[];
+    try{
+        let json:any[]=[];
         if (fs.existsSync(filepath)){
             const content=fs.readFileSync(filepath,'utf-8');
             json=JSON.parse(content);
@@ -108,4 +119,26 @@ export const lovestar=(mypath:string,name:starConfig['name'],description:starCon
         throw new Errors.FileReadError('💔Error reading file:'+e);
     };
     return 'done';
+};
+
+//@0.1.5
+export const createMarkdown=(mypath:string,name:string,jsontomd:boolean)=>{
+    const filepath=path.join(mypath,`${name}.md`);
+    try{
+        fs.readFileSync(filepath,'utf-8');
+    }catch(e){
+        throw new Errors.FileReadError('💔Error reading file:'+e);
+    };
+    let data=fs.readFileSync(filepath,'utf-8');
+    if(!jsontomd){
+        return data;
+    };
+    const json=JSON.parse(data);
+    let mdstring:string='';
+    json.forEach((item:any)=>{
+        mdstring+=`# ${item.title}\n\n`;
+        mdstring+=`${item.content}\n\n`;
+    });
+    //console.log(mdstring)
+    return mdstring;
 };

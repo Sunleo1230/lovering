@@ -26,3 +26,18 @@ export class InvalidConfigError extends LoveringError{
         this.name='InvalidConfigError';
     }
 };
+
+//@0.1.5
+export class ImportError extends LoveringError{
+    constructor(message:string){
+        super(message);
+        this.name='ImportError';
+    }
+};
+
+export enum ErrorCode {
+    FileReadError='FileReadError',
+    KeywordNotFoundError='KeywordNotFoundError',
+    InvalidConfigError='InvalidConfigError',
+    ImportError='ImportError',
+};

@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.lovestar = exports.random = exports.reKeywords = exports.readText = exports.__datapath = exports.addTag = exports.Lovering = exports.createNewText = void 0;
+exports.createMarkdown = exports.lovestar = exports.random = exports.reKeywords = exports.readText = exports.__datapath = exports.addTag = exports.Lovering = exports.createNewText = void 0;
 const Errors = __importStar(require("../error"));
 const path = __importStar(require("path"));
 const fs = __importStar(require("fs"));
@@ -44,6 +44,7 @@ const createNewText = () => {
     };
 };
 exports.createNewText = createNewText;
+//@0.1.0
 const Lovering = (text, _length) => {
     if (Array.isArray(text)) {
         return text.map(t => {
@@ -56,6 +57,7 @@ const Lovering = (text, _length) => {
                 now.text = t;
                 now._length = t.length > 50 ? 'long' : 'short';
             }
+            ;
             return now;
         });
     }
@@ -71,15 +73,28 @@ const Lovering = (text, _length) => {
             now._length = text.length >= 50 ? 'long' : 'short';
             return now;
         }
+        ;
     }
+    ;
 };
 exports.Lovering = Lovering;
+//@0.1.6 fixed here.
 const addTag = (text, tag) => {
     if (Array.isArray(text)) {
-        return text.map(t => ({
-            text: `<${tag}>${t}</${tag}>`,
-            _length: t.length >= 50 ? 'long' : 'short',
-        }));
+        return text.map(t => {
+            let content = typeof t === 'string' ? t : (t && typeof t === 'object' && 'text' in t ? t.text : '');
+            return {
+                text: `<${tag}>${content}</${tag}>`,
+                _length: content.length >= 50 ? 'long' : 'short',
+            };
+        });
+    }
+    else if (typeof text === 'object' && text !== null) {
+        let content = typeof text.text === 'string' ? text.text : '';
+        return {
+            text: `<${tag}>${content}</${tag}>`,
+            _length: content.length > 50 ? 'long' : 'short',
+        };
     }
     else {
         return {
@@ -87,6 +102,7 @@ const addTag = (text, tag) => {
             _length: text.length > 50 ? 'long' : 'short',
         };
     }
+    ;
 };
 exports.addTag = addTag;
 //@0.1.1
@@ -153,3 +169,28 @@ const lovestar = (mypath, name, description) => {
     return 'done';
 };
 exports.lovestar = lovestar;
+//@0.1.5
+const createMarkdown = (mypath, name, jsontomd) => {
+    const filepath = path.join(mypath, `${name}.md`);
+    try {
+        fs.readFileSync(filepath, 'utf-8');
+    }
+    catch (e) {
+        throw new Errors.FileReadError('💔Error reading file:' + e);
+    }
+    ;
+    let data = fs.readFileSync(filepath, 'utf-8');
+    if (!jsontomd) {
+        return data;
+    }
+    ;
+    const json = JSON.parse(data);
+    let mdstring = '';
+    json.forEach((item) => {
+        mdstring += `# ${item.title}\n\n`;
+        mdstring += `${item.content}\n\n`;
+    });
+    //console.log(mdstring)
+    return mdstring;
+};
+exports.createMarkdown = createMarkdown;

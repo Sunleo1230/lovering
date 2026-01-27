@@ -14,6 +14,15 @@
  * @param {__datapath} -data path for text articles
  * @param {initdb} -a function to initialize the database
  * @param {keywords} -a function to replace keywords in text
+ * @param {LoveringError} -base error class for Lovering library
+ * @param {KeywordNotFoundError} -error class for keyword
+ * @param {InvalidConfigError} -error class for invalid configuration
+ * @param {FileReadError} -error class for file read errors
+ * @param {random} -a function to get a random element from an array
+ * @param {lovestar} -a function to create a "star" entry in the database
+ * @param {createMarkdown} -a function to create markdown content
+*/
+/**
  * @results [
   { text: '<tag>j</tag>', _length: 'short' },
   { text: '<tag>k</tag>', _length: 'short' }
@@ -22,10 +31,13 @@
 import { createNewText, Lovering, addTag } from './utils';
 import { readText, __datapath } from './utils';
 import { reKeywords } from './utils';
-import { LoveringError } from './error';
+import { LoveringError, KeywordNotFoundError, InvalidConfigError, FileReadError, ImportError } from './error';
 import { random, lovestar } from './utils';
+import { createMarkdown } from './utils';
 export { createNewText, Lovering, addTag };
 export { readText, __datapath };
 export { reKeywords };
-export { LoveringError };
+export { LoveringError, KeywordNotFoundError, InvalidConfigError, FileReadError, ImportError };
 export { random, lovestar };
+export { createMarkdown };
+export { Types } from './types';

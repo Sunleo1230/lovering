@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InvalidConfigError = exports.FileReadError = exports.KeywordNotFoundError = exports.LoveringError = void 0;
+exports.ErrorCode = exports.ImportError = exports.InvalidConfigError = exports.FileReadError = exports.KeywordNotFoundError = exports.LoveringError = void 0;
 //@0.1.3
 class LoveringError extends Error {
     constructor(message) {
@@ -33,4 +33,21 @@ class InvalidConfigError extends LoveringError {
     }
 }
 exports.InvalidConfigError = InvalidConfigError;
+;
+//@0.1.5
+class ImportError extends LoveringError {
+    constructor(message) {
+        super(message);
+        this.name = 'ImportError';
+    }
+}
+exports.ImportError = ImportError;
+;
+var ErrorCode;
+(function (ErrorCode) {
+    ErrorCode["FileReadError"] = "FileReadError";
+    ErrorCode["KeywordNotFoundError"] = "KeywordNotFoundError";
+    ErrorCode["InvalidConfigError"] = "InvalidConfigError";
+    ErrorCode["ImportError"] = "ImportError";
+})(ErrorCode || (exports.ErrorCode = ErrorCode = {}));
 ;

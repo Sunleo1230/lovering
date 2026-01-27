@@ -10,3 +10,12 @@ export declare class FileReadError extends LoveringError {
 export declare class InvalidConfigError extends LoveringError {
     constructor(message: string);
 }
+export declare class ImportError extends LoveringError {
+    constructor(message: string);
+}
+export declare enum ErrorCode {
+    FileReadError = "FileReadError",
+    KeywordNotFoundError = "KeywordNotFoundError",
+    InvalidConfigError = "InvalidConfigError",
+    ImportError = "ImportError"
+}

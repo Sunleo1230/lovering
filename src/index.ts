@@ -17,6 +17,16 @@
  * @param {__datapath} -data path for text articles
  * @param {initdb} -a function to initialize the database
  * @param {keywords} -a function to replace keywords in text
+ * @param {LoveringError} -base error class for Lovering library
+ * @param {KeywordNotFoundError} -error class for keyword
+ * @param {InvalidConfigError} -error class for invalid configuration
+ * @param {FileReadError} -error class for file read errors
+ * @param {random} -a function to get a random element from an array
+ * @param {lovestar} -a function to create a "star" entry in the database
+ * @param {createMarkdown} -a function to create markdown content
+*/
+
+/**
  * @results [
   { text: '<tag>j</tag>', _length: 'short' },
   { text: '<tag>k</tag>', _length: 'short' }
@@ -26,11 +36,29 @@
 import {createNewText,Lovering,addTag} from './utils'; /*@0.1.0 */
 import {readText,__datapath} from './utils'; /*@0.1.1*/
 import {reKeywords} from './utils'; /*@0.1.2 */
-import {LoveringError} from './error'; /*@0.1.3 */
+import {LoveringError,
+    KeywordNotFoundError,
+    InvalidConfigError,
+    FileReadError,
+    ImportError} from './error'; /*@0.1.3 */
 import {random,lovestar} from './utils'; /*@0.1.4 */
+import { createMarkdown } from './utils'; /*@0.1.5 */
+import plugin from './cfg.json'; /*@0.2.0 */
+
+if(plugin.plugins){
+    for(const plg of plugin.plugins){
+        try{
+            require(plg);
+        }catch(e){
+            console.warn(`Plugin ${plg} could not be loaded. Make sure it is installed.`);
+        };
+    };
+};
 
 export {createNewText,Lovering,addTag};
 export {readText,__datapath};
 export {reKeywords};
-export {LoveringError};
+export {LoveringError,KeywordNotFoundError,InvalidConfigError,FileReadError,ImportError};
 export {random,lovestar};
+export {createMarkdown};
+export {Types} from './types';

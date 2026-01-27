@@ -1,0 +1,7 @@
+{
+    "version": "1.0.0",
+    "user":"lovering",
+    "plugins":[
+        "@lovering/service"
+    ]
+}
