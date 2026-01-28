@@ -2,7 +2,7 @@
 /**
  * @author Sunleo1230
  * @description Lovering Text Model Library
- * @version 0.1.1
+ * @version 0.1.7
  * @license MIT
  * @homepage https://gitee.com/Sunleo1230/loveringjs/
  * @repository https://gitee.com/Sunleo1230/loveringjs.git/

@@ -1,21 +1,16 @@
 export declare class LoveringError extends Error {
-    constructor(message: string);
+    code: number;
+    constructor(message: string, code: number);
 }
 export declare class KeywordNotFoundError extends LoveringError {
-    constructor(message: string);
+    constructor(message: string, code: number);
 }
 export declare class FileReadError extends LoveringError {
-    constructor(message: string);
+    constructor(message: string, code: number);
 }
 export declare class InvalidConfigError extends LoveringError {
-    constructor(message: string);
+    constructor(message: string, code: number);
 }
 export declare class ImportError extends LoveringError {
-    constructor(message: string);
-}
-export declare enum ErrorCode {
-    FileReadError = "FileReadError",
-    KeywordNotFoundError = "KeywordNotFoundError",
-    InvalidConfigError = "InvalidConfigError",
-    ImportError = "ImportError"
+    constructor(message: string, code: number);
 }

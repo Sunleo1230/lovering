@@ -113,7 +113,7 @@ const readText = (mypath, keywords) => {
         fs.readFileSync(path.join(mypath, `${keywords}.json`), 'utf-8');
     }
     catch (e) {
-        throw new Errors.FileReadError('💔Error reading file:' + e);
+        throw new Errors.FileReadError('💔Error reading file:' + e, 1000);
     }
     data = fs.readFileSync(path.join(mypath, `${keywords}.json`), 'utf-8');
     const json = JSON.parse(data);
@@ -127,12 +127,12 @@ const reKeywords = (text, keywords) => {
     }
     ;
     if (keywords.target.length !== keywords.replace.length) {
-        throw new Errors.InvalidConfigError('💔Target and replace arrays must have the same length.');
+        throw new Errors.InvalidConfigError('💔Target and replace arrays must have the same length.', 1000);
     }
     ;
     for (let i = 0; i < keywords.target.length; i++) {
         if (!text.some(t => t.includes(keywords.target[i]))) {
-            throw new Errors.KeywordNotFoundError('💔Target keyword not found in the target text.');
+            throw new Errors.KeywordNotFoundError('💔Target keyword not found in the target text.', 1000);
         }
         else {
             text = text.map(t => t.replace(new RegExp(keywords.target[i], 'g'), keywords.replace[i]));
@@ -163,20 +163,21 @@ const lovestar = (mypath, name, description) => {
         fs.writeFileSync(filepath, JSON.stringify(json, null, 2), 'utf-8');
     }
     catch (e) {
-        throw new Errors.FileReadError('💔Error reading file:' + e);
+        throw new Errors.FileReadError('💔Error reading file:' + e, 1000 | e);
     }
     ;
     return 'done';
 };
 exports.lovestar = lovestar;
 //@0.1.5
+//@0.1.7 fixed
 const createMarkdown = (mypath, name, jsontomd) => {
     const filepath = path.join(mypath, `${name}.md`);
     try {
         fs.readFileSync(filepath, 'utf-8');
     }
     catch (e) {
-        throw new Errors.FileReadError('💔Error reading file:' + e);
+        throw new Errors.FileReadError('💔Error reading file:' + e, 1000);
     }
     ;
     let data = fs.readFileSync(filepath, 'utf-8');
