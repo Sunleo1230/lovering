@@ -71,5 +71,5 @@ MIT
 
 ## 特别鸣谢
 - [mxy](https://yuque.com/sunleo1230/kmno4)
-- [719](http://sunleo1230.top:8000/dynamic.html?lang=gb)
+- [719](http://sunleo1230.top:8000/html/dynamic-viewing.html?city=%E5%AD%9F&lang=gb)
 - [love](https://www.玩原神玩的.com)
