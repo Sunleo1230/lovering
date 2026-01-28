@@ -42,7 +42,7 @@ export const Lovering=(text:string|string[],_length?:Types['_length']):Types|Typ
 };
 
 //@0.1.6 fixed here.
-export const addTag=(text:string|string[]|{text:string}[]|{text:string},tag: string):Types|Types[]=>{
+export const addTag=(text:string|string[]|{text:string}[]|{text:string},tag:string):Types|Types[]=>{
     if (Array.isArray(text)) {
         return text.map(t=>{
             let content=typeof t==='string'?t:(t&&typeof t==='object'&&'text'in t?t.text:'');
@@ -73,7 +73,7 @@ export const readText=(mypath:string,keywords:Article):Article=>{
     try{
         fs.readFileSync(path.join(mypath,`${keywords}.json`),'utf-8');
     }catch(e){
-        throw new Errors.FileReadError('💔Error reading file:'+e);
+        throw new Errors.FileReadError('💔Error reading file:'+e,1000);
     }
     data=fs.readFileSync(path.join(mypath,`${keywords}.json`),'utf-8');
     const json=JSON.parse(data);
@@ -86,11 +86,11 @@ export const reKeywords=(text:string[]|string,keywords:ReplaceConfig)=>{
         text=[text];
     };
     if(keywords.target.length!==keywords.replace.length){
-        throw new Errors.InvalidConfigError('💔Target and replace arrays must have the same length.');
+        throw new Errors.InvalidConfigError('💔Target and replace arrays must have the same length.',1000);
     };
     for(let i:number=0;i<keywords.target.length;i++){
         if(!text.some(t=>t.includes(keywords.target[i]))){
-            throw new Errors.KeywordNotFoundError('💔Target keyword not found in the target text.');
+            throw new Errors.KeywordNotFoundError('💔Target keyword not found in the target text.',1000);
         }else{
             text=text.map(t=>t.replace(new RegExp(keywords.target[i], 'g'), keywords.replace[i]));
             continue;
@@ -116,18 +116,19 @@ export const lovestar=(mypath:string,name:starConfig['name'],description:starCon
         json.push(description);
         fs.writeFileSync(filepath, JSON.stringify(json,null,2), 'utf-8');
     }catch(e){
-        throw new Errors.FileReadError('💔Error reading file:'+e);
+        throw new Errors.FileReadError('💔Error reading file:'+e,1000| e as unknown as any);
     };
     return 'done';
 };
 
 //@0.1.5
+//@0.1.7 fixed
 export const createMarkdown=(mypath:string,name:string,jsontomd:boolean)=>{
     const filepath=path.join(mypath,`${name}.md`);
     try{
         fs.readFileSync(filepath,'utf-8');
     }catch(e){
-        throw new Errors.FileReadError('💔Error reading file:'+e);
+        throw new Errors.FileReadError('💔Error reading file:'+e,1000);
     };
     let data=fs.readFileSync(filepath,'utf-8');
     if(!jsontomd){
