@@ -43,17 +43,6 @@ import {LoveringError,
     ImportError} from './error'; /*@0.1.3 */
 import {random,lovestar} from './utils'; /*@0.1.4 */
 import { createMarkdown } from './utils'; /*@0.1.5 */
-import plugin from './cfg.json'; /*@0.2.0 */
-
-if(plugin.plugins){
-    for(const plg of plugin.plugins){
-        try{
-            require(plg);
-        }catch(e){
-            console.warn(`Plugin ${plg} could not be loaded. Make sure it is installed.`);
-        };
-    };
-};
 
 export {createNewText,Lovering,addTag};
 export {readText,__datapath};
